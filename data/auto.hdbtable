@@ -1,0 +1,13 @@
+table.schemaName = "SCHEMA_NAME";
+table.tableType = COLUMNSTORE;
+table.description = "AutoMobile Details";
+table.columns = [
+{name = "AutoMobileId"; sqlType = NVARCHAR; nullable = false; length = 10; comment = "AutoMobile ID"; },
+{name = "AutoMobileName"; sqlType = NVARCHAR; nullable = false; length = 40; comment = "AutoMobile Name"; },
+{name = "AutoMobileCC"; sqlType = NVARCHAR; nullable = false; length = 10; comment = "AutoMobile CC"; },
+{name = "AutoMobileType"; sqlType = NVARCHAR; nullable = false; length = 60; comment = "AutoMobile Type"; },
+{name = "AutoMobileFuel"; sqlType = NVARCHAR; nullable = false; length = 10; comment = "AutoMobile Fuel"; },
+{name = "AutoMobileMileage"; sqlType = DECIMAL; nullable = false; precision = 15; scale = 2; comment = "AutoMobile Mileage"; },
+{name = "AutoMobileColor"; sqlType = NVARCHAR; nullable = false; length = 20; comment = "AutoMobile Color"; }
+];
+table.primaryKey.pkcolumns = ["AutoMobileId"];

@@ -1,0 +1,10 @@
+table.schemaName = " SCHEMA_NAME ";
+table.tableType = COLUMNSTORE;
+table.description = "Region Details";
+table.columns = [
+{name = "RegionId"; sqlType = NVARCHAR; nullable = false; length = 10; comment = "Region ID"; },
+{name = "RegionName"; sqlType = NVARCHAR; nullable = false; length = 40; comment = "Region Name"; },
+{name = "RegionsubName"; sqlType = NVARCHAR; nullable = false; length = 10; comment = "Region Sub Name"; },
+{name = "RegionState"; sqlType = NVARCHAR; nullable = false; length = 60; comment = "Region State"; }
+];
+table.primaryKey.pkcolumns = ["RegionId"];

@@ -1,0 +1,6 @@
+service  { 
+   
+   "SalesAutoDemo.models::CA_SALESREPORT" as "SALES_DISPLAYLIST"
+   keys ("AutoMobileId");
+    
+}

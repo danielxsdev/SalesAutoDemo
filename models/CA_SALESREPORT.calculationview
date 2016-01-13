@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_SALESREPORT" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <descriptions defaultDescription="Calculation View for Sales"/>
+  <localVariables/>
+  <variableMappings/>
+  <dataSources>
+    <DataSource id="SalesAutoDemo.data::region" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SCHEMA_NAME" columnObjectName="SalesAutoDemo.data::region"/>
+    </DataSource>
+    <DataSource id="SalesAutoDemo.data::sales" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SCHEMA_NAME" columnObjectName="SalesAutoDemo.data::sales"/>
+    </DataSource>
+    <DataSource id="SalesAutoDemo.data::auto" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SCHEMA_NAME" columnObjectName="SalesAutoDemo.data::auto"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="PROJ_REGION">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RegionId"/>
+        <viewAttribute id="RegionName"/>
+        <viewAttribute id="RegionsubName"/>
+        <viewAttribute id="RegionState"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SalesAutoDemo.data::region">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionId" source="RegionId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionName" source="RegionName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionsubName" source="RegionsubName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionState" source="RegionState"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="PROJ_SALES">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RegionId"/>
+        <viewAttribute id="AutoMobileId"/>
+        <viewAttribute id="Sales"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SalesAutoDemo.data::sales">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionId" source="RegionId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AutoMobileId" source="AutoMobileId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Sales" source="Sales"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="JOIN_REGION_SALES" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RegionsubName"/>
+        <viewAttribute id="RegionName"/>
+        <viewAttribute id="RegionId"/>
+        <viewAttribute id="RegionState"/>
+        <viewAttribute id="AutoMobileId"/>
+        <viewAttribute id="Sales"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#PROJ_REGION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionsubName" source="RegionsubName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionName" source="RegionName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionId" source="RegionId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionState" source="RegionState"/>
+      </input>
+      <input node="#PROJ_SALES">
+        <mapping xsi:type="Calculation:AttributeMapping" target="AutoMobileId" source="AutoMobileId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Sales" source="Sales"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionId" source="RegionId"/>
+      </input>
+      <joinAttribute name="RegionId"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="JOIN_AUTO_REGIONSALES" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="AutoMobileName"/>
+        <viewAttribute id="RegionName"/>
+        <viewAttribute id="RegionsubName"/>
+        <viewAttribute id="AutoMobileCC"/>
+        <viewAttribute id="AutoMobileType"/>
+        <viewAttribute id="AutoMobileFuel"/>
+        <viewAttribute id="AutoMobileMileage"/>
+        <viewAttribute id="AutoMobileColor"/>
+        <viewAttribute id="Sales"/>
+        <viewAttribute id="RegionState"/>
+        <viewAttribute id="AutoMobileId"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SalesAutoDemo.data::auto">
+        <mapping xsi:type="Calculation:AttributeMapping" target="AutoMobileName" source="AutoMobileName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AutoMobileCC" source="AutoMobileCC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AutoMobileType" source="AutoMobileType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AutoMobileFuel" source="AutoMobileFuel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AutoMobileMileage" source="AutoMobileMileage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AutoMobileColor" source="AutoMobileColor"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AutoMobileId" source="AutoMobileId"/>
+      </input>
+      <input node="#JOIN_REGION_SALES">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionName" source="RegionName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionsubName" source="RegionsubName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Sales" source="Sales"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RegionState" source="RegionState"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AutoMobileId" source="AutoMobileId"/>
+      </input>
+      <joinAttribute name="AutoMobileId"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="JOIN_AUTO_REGIONSALES">
+    <descriptions/>
+    <attributes>
+      <attribute id="AutoMobileName" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AutoMobile Name"/>
+        <keyMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="AutoMobileName"/>
+      </attribute>
+      <attribute id="RegionName" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RegionName"/>
+        <keyMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="RegionName"/>
+      </attribute>
+      <attribute id="RegionsubName" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RegionsubName"/>
+        <keyMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="RegionsubName"/>
+      </attribute>
+      <attribute id="AutoMobileCC" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AutoMobile CC"/>
+        <keyMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="AutoMobileCC"/>
+      </attribute>
+      <attribute id="AutoMobileType" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AutoMobile Type"/>
+        <keyMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="AutoMobileType"/>
+      </attribute>
+      <attribute id="AutoMobileFuel" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AutoMobile Fuel"/>
+        <keyMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="AutoMobileFuel"/>
+      </attribute>
+      <attribute id="AutoMobileColor" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AutoMobile Color"/>
+        <keyMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="AutoMobileColor"/>
+      </attribute>
+      <attribute id="RegionState" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region State"/>
+        <keyMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="RegionState"/>
+      </attribute>
+      <attribute id="AutoMobileId" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AutoMobile ID"/>
+        <keyMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="AutoMobileId"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="AutoMobileMileage" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="AutoMobile Mileage"/>
+        <measureMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="AutoMobileMileage"/>
+      </measure>
+      <measure id="Sales" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Sales"/>
+        <measureMapping columnObjectName="JOIN_AUTO_REGIONSALES" columnName="Sales"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="83" y="87"/>
+        <rectangleSize height="64" width="172"/>
+      </shape>
+      <shape expanded="true" modelObjectName="PROJ_REGION" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="PROJ_SALES" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="JOIN_REGION_SALES" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="83" y="261"/>
+        <rectangleSize height="82" width="172"/>
+      </shape>
+      <shape expanded="true" modelObjectName="JOIN_AUTO_REGIONSALES" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="83" y="165"/>
+        <rectangleSize height="82" width="172"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

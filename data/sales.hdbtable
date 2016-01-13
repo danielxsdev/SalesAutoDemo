@@ -1,0 +1,10 @@
+table.schemaName = " SCHEMA_NAME ";
+table.tableType = COLUMNSTORE;
+table.description = "Sales Details";
+table.columns = [
+{name = "RegionId"; sqlType = NVARCHAR; nullable = false; length = 10; comment = "Region ID"; },
+{name = "AutoMobileId"; sqlType = NVARCHAR; nullable = false; length = 40; comment = "AutoMobile ID"; },
+{name = "Sales"; sqlType = DECIMAL; nullable = false; precision = 15; scale = 2; comment = "Sales"; }
+ 
+];
+table.primaryKey.pkcolumns = ["RegionId","AutoMobileId"];

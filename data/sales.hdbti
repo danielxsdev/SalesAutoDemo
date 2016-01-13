@@ -1,0 +1,11 @@
+import = 
+        [
+            
+            {
+                hdbtable = "SalesAutoDemo.data::sales";     // Target repository table
+                file = "SalesAutoDemo.data:sales.csv";        
+                header = false;                          
+                delimField = ",";                          
+            } 
+
+         ]; 
